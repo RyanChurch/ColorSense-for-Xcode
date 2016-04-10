@@ -23,10 +23,15 @@ typedef enum OMColorType {
 	OMColorTypeNSWhiteCalibrated,	//[NSColor colorWithCalibratedWhite:0.5 alpha:1.0]
 	OMColorTypeNSWhiteDevice,		//[NSColor colorWithDeviceWhite:0.5 alpha:1.0]
 	OMColorTypeNSConstant,			//[NSColor redColor]
+    
+    OMColorTypeUIRGBASwift,			//UIColor(red: 0.670, green: 0.821, blue: 0.294, alpha: 1.0)
+    OMColorTypeUIWhiteSwift,		//UIColor(white: 0.5, alpha: 1.0)
+    OMColorTypeUIConstantSwift,		//UIColor.redColor()
 	
 } OMColorType;
 
-BOOL OMColorTypeIsNSColor(OMColorType colorType) { return colorType >= OMColorTypeNSRGBACalibrated; }
+BOOL OMColorTypeIsNSColor(OMColorType colorType) { return colorType >= OMColorTypeNSRGBACalibrated && colorType <= OMColorTypeNSConstant; }
+BOOL OMColorTypeIsUIColor(OMColorType colorType) { return colorType >= OMColorTypeUIRGBA && colorType < OMColorTypeUIConstant; }
 
 //TODO: Maybe support HSB and CMYK color types...
 
@@ -46,6 +51,10 @@ BOOL OMColorTypeIsNSColor(OMColorType colorType) { return colorType >= OMColorTy
 	NSRegularExpression *_whiteNSColorRegex;
 	NSRegularExpression *_whiteUIColorRegex;
 	NSRegularExpression *_constantColorRegex;
+    
+    NSRegularExpression *_rgbaUIColorSwiftRegex;
+    NSRegularExpression *_whiteUIColorSwiftRegex;
+    NSRegularExpression *_constantColorSwiftRegex;
 }
 
 @property (nonatomic, strong) OMPlainColorWell *colorWell;
